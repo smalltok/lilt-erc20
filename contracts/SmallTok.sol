@@ -12,4 +12,12 @@ contract SmallTok is ERC20, ERC20Permit, Ownable {
         ERC20Permit("SmallTok")
         Ownable(initialOwner)
     {}
+
+    function mint(address account, uint256 amount) external onlyOwner {
+        _mint(account, amount);
+    }
+
+    function burn(uint256 amount) external {
+        _burn(_msgSender(), amount);
+    }
 }
