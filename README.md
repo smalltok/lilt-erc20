@@ -1,0 +1,1 @@
+# smalltok-erc20
