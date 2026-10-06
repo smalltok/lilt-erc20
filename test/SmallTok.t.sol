@@ -5,8 +5,8 @@ import {SmallTok} from "../contracts/SmallTok.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 contract SmallTokV2 is SmallTok {
-    function version() external pure returns (uint256) {
-        return 2;
+    function version() external pure override returns (uint256) {
+        return 3;
     }
 }
 
@@ -35,6 +35,7 @@ contract SmallTokTest {
         require(keccak256(bytes(token.symbol())) == keccak256(bytes("SMALLTOK")), "incorrect symbol");
         require(token.decimals() == 18, "incorrect decimals");
         require(token.totalSupply() == 0, "unexpected initial supply");
+        require(token.version() == 2, "incorrect version");
     }
 
     function testMintAndBurn() public {
@@ -70,11 +71,12 @@ contract SmallTokTest {
     function testOwnerCanUpgradeAndStateIsPreserved() public {
         SmallTok token = _deployToken(address(this));
         token.mint(address(this), 75);
+        require(token.version() == 2, "incorrect starting version");
 
         SmallTokV2 implementation = new SmallTokV2();
         token.upgradeToAndCall(address(implementation), "");
 
-        require(SmallTokV2(address(token)).version() == 2, "implementation not upgraded");
+        require(SmallTokV2(address(token)).version() == 3, "implementation not upgraded");
         require(token.owner() == address(this), "owner changed after upgrade");
         require(token.balanceOf(address(this)) == 75, "balance changed after upgrade");
         require(token.totalSupply() == 75, "supply changed after upgrade");

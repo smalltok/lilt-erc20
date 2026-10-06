@@ -39,3 +39,8 @@ converts it using the token's decimals.
 ```sh
 make mint
 ```
+
+To deploy the current implementation and upgrade the proxy in `TOKEN_ADDRESS`, run
+`make upgrade`. The deployer key must belong to the proxy owner. The command creates
+a new implementation and updates the proxy; it does not deploy a new token proxy.
+Run `forge test` locally before using it on a network.

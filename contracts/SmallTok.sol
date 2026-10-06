@@ -26,5 +26,9 @@ contract SmallTok is ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeabl
         _burn(_msgSender(), amount);
     }
 
+    function version() external pure virtual returns (uint256) {
+        return 2;
+    }
+
     function _authorizeUpgrade(address) internal override onlyOwner {}
 }
