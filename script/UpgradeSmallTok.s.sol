@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-import {SmallTok} from "../contracts/SmallTok.sol";
+import {LilTok} from "../contracts/LilTok.sol";
 
 interface VmUpgrade {
     function envAddress(string calldata name) external view returns (address);
@@ -9,15 +9,15 @@ interface VmUpgrade {
     function stopBroadcast() external;
 }
 
-contract UpgradeSmallTok {
+contract UpgradeLilTok {
     VmUpgrade private constant vm =
         VmUpgrade(address(uint160(uint256(keccak256("hevm cheat code")))));
 
-    function run() external returns (SmallTok implementation) {
-        SmallTok proxy = SmallTok(vm.envAddress("TOKEN_ADDRESS"));
+    function run() external returns (LilTok implementation) {
+        LilTok proxy = LilTok(vm.envAddress("TOKEN_ADDRESS"));
 
         vm.startBroadcast();
-        implementation = new SmallTok();
+        implementation = new LilTok();
         proxy.upgradeToAndCall(address(implementation), "");
         vm.stopBroadcast();
     }

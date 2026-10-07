@@ -1,7 +1,7 @@
 // SPDX-License-Identifier: MIT
 pragma solidity ^0.8.27;
 
-import {SmallTok} from "../contracts/SmallTok.sol";
+import {LilTok} from "../contracts/LilTok.sol";
 import {ERC1967Proxy} from "@openzeppelin/contracts/proxy/ERC1967/ERC1967Proxy.sol";
 
 interface Vm {
@@ -10,16 +10,16 @@ interface Vm {
     function stopBroadcast() external;
 }
 
-contract DeploySmallTok {
+contract DeployLilTok {
     Vm private constant vm = Vm(address(uint160(uint256(keccak256("hevm cheat code")))));
 
-    function run() external returns (SmallTok token) {
+    function run() external returns (LilTok token) {
         address initialOwner = vm.envAddress("INITIAL_OWNER");
-        bytes memory initData = abi.encodeCall(SmallTok.initialize, (initialOwner));
+        bytes memory initData = abi.encodeCall(LilTok.initialize, (initialOwner));
 
         vm.startBroadcast();
-        SmallTok implementation = new SmallTok();
-        token = SmallTok(address(new ERC1967Proxy(address(implementation), initData)));
+        LilTok implementation = new LilTok();
+        token = LilTok(address(new ERC1967Proxy(address(implementation), initData)));
         vm.stopBroadcast();
     }
 }

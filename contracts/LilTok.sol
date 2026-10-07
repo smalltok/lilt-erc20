@@ -7,14 +7,14 @@ import {ERC20Upgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/
 import {ERC20PermitUpgradeable} from "@openzeppelin/contracts-upgradeable/token/ERC20/extensions/ERC20PermitUpgradeable.sol";
 import {UUPSUpgradeable} from "@openzeppelin/contracts/proxy/utils/UUPSUpgradeable.sol";
 
-contract SmallTok is ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
+contract LilTok is ERC20Upgradeable, ERC20PermitUpgradeable, OwnableUpgradeable, UUPSUpgradeable {
     constructor() {
         _disableInitializers();
     }
 
     function initialize(address initialOwner) external initializer {
-        __ERC20_init("SmallTok", "SMALLTOK");
-        __ERC20Permit_init("SmallTok");
+        __ERC20_init("LilTok", "LILT");
+        __ERC20Permit_init("LilTok");
         __Ownable_init(initialOwner);
     }
 

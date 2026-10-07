@@ -1,6 +1,6 @@
-# smalltok-erc20
+# lilt-erc20
 
-SmallTok is an ERC-20 token with permit support and owner-authorized UUPS upgrades.
+LilTok (LILT) is an ERC-20 token with permit support and owner-authorized UUPS upgrades.
 
 ## Build and test
 
@@ -25,12 +25,8 @@ cp .env.example .env
 make deploy
 ```
 
-The original SmallTok address previously deployed on Sepolia is a non-proxy contract
-and cannot be upgraded. A separate UUPS proxy has been deployed at
-`0xc1A7CFcebdEF5d2F3EF308752c50c28E0192C514`; its implementation is
-`0x6de9924120a691f19fdb246b0cfbedacb90a7da2`. The local `.env` should point
-`TOKEN_ADDRESS` to the proxy when using `make mint`. Future calls to `make deploy`
-create another implementation and proxy; they do not alter either existing token.
+This repository contains no deployed LilTok address. `make deploy` creates a new
+implementation and proxy; `make upgrade` upgrades the proxy configured in `TOKEN_ADDRESS`.
 
 To mint through the proxy, set `TOKEN_ADDRESS` to the proxy address, then set `MINT_TO`
 and `MINT_AMOUNT` in `.env`. The amount is specified in whole tokens; the script
